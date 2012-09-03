@@ -1,5 +1,60 @@
+--------------------- COMPILAÇÂ ---------------------------
+O comando make irá compilar todos os projetos exceto o 
+envolvendo o android
 
-
----------------------COMPILAÇÂO-----------------------------
-$ configure
 $ make
+
+*Android
+	Para compilação do projeto Android, recomenda-se abrir o 
+projeto no eclipse integrado com o SDK do android e através
+do pressionamento CTRL+F11 o projeto será compilado e descar
+regado no dispositivo conectado ao computador. 
+
+---------------------  EXECUÇÃO  ---------------------------
+*Android 
+	
+	Aplicativo MainServer
+	No Campo PortServer insira a porta acima de 1024 ao qual
+o usuário deseja receber conexões e pressione o StartButton
+
+*C++	  
+	Servidores intermediarios
+	
+	$	./serverInterCplusplus porta_para_receber_conexões 
+nivel ip_servidor_acima porta_servidor_acima
+	
+	Clientes 
+	
+	$	./clientCplusplus ip_servidor_nivel_acima 
+porta_servidor_acima
+
+*C
+	Servidores intermediarios
+	
+	$	./serverInterC porta_para_receber_conexões 
+nivel ip_servidor_acima porta_servidor_acima
+	
+	Clientes 
+	
+	$	./clientC ip_servidor_nivel_acima 
+porta_servidor_acima
+
+*JAVA
+	Clientes 
+	
+	$	javac Client.class	ip_servidor_nivel_acima 
+porta_servidor_acima  
+
+---------------------   TESTE    ---------------------------
+Para execução de testes rápidos execute os scripts da pasta 
+scripts atraves dos seguintes comandos
+
+$	./testeDesejado.sh 
+	
+Onde testeDesejado é o nome de um dentre aqueles existentes 
+na pasta script	
+
+OBS: Caso não estejam com permissão de execução
+	$	chmod +x *.sh
+	
+ 	
