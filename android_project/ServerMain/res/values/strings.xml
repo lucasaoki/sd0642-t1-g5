@@ -1,0 +1,11 @@
+<resources>
+
+	<string name="app_name">ServerMain</string>
+    <string name="edit_message">Server Port</string>
+    <string name="button_send">Start Server</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">ServerMain</string>
+    <string name="array_time">Time and Array Information</string>
+    <color name="color_text">#255</color>
+    
+</resources>
