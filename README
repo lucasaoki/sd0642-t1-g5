@@ -1,15 +1,20 @@
---------------------- COMPILAÇÂ ---------------------------
+--------------------- COMPILAÇÂO ---------------------------
 O comando make irá compilar todos os projetos exceto o 
 envolvendo o android
 
 $ make
 
 *Android
+
 	Para compilação do projeto Android, recomenda-se abrir o 
 projeto no eclipse integrado com o SDK do android e através
 do pressionamento CTRL+F11 o projeto será compilado e descar
 regado no dispositivo conectado ao computador. 
 
+	Caso não queira compilar instale o programa 
+ServerMain.apk que está na pasta app_android em seu disposi
+tivo android
+	
 ---------------------  EXECUÇÃO  ---------------------------
 *Android 
 	
