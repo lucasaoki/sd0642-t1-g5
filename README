@@ -1,3 +1,11 @@
+--------------------- REQUISITOS ---------------------------
+Para compilação e execução dos procedimentos faz-se necessá
+rio ter presente os seguintes itens:
+
+	+ Boost thread 1.48
+	+ Android SDK
+	+ Eclipse integrado com Android SDK
+	
 --------------------- COMPILAÇÂO ---------------------------
 O comando make irá compilar todos os projetos exceto o 
 envolvendo o android
@@ -62,4 +70,8 @@ na pasta script
 OBS: Caso não estejam com permissão de execução
 	$	chmod +x *.sh
 	
+--------------------- DOCUMENTOS ----------------------------
+Uma versão do relatório encontra-se na pasta doc/relatorios, 
+as saídas dos testes encontram-se na pasta doc/programOut/cli
+ents ou doc/programOut/servers 
  	
