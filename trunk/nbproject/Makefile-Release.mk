@@ -37,8 +37,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/Client.o \
 	${OBJECTDIR}/src/Server.o \
-	${OBJECTDIR}/src/mainClient.o \
-	${OBJECTDIR}/src/mainServer.o
+	${OBJECTDIR}/src/ServClient.o \
+	${OBJECTDIR}/src/serverMainF.o \
+	${OBJECTDIR}/src/hibridMainF.o \
+	${OBJECTDIR}/src/clientMainF.o
 
 
 # C Compiler Flags
@@ -75,15 +77,25 @@ ${OBJECTDIR}/src/Server.o: src/Server.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Server.o src/Server.cpp
 
-${OBJECTDIR}/src/mainClient.o: src/mainClient.cpp 
+${OBJECTDIR}/src/ServClient.o: src/ServClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/mainClient.o src/mainClient.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServClient.o src/ServClient.cpp
 
-${OBJECTDIR}/src/mainServer.o: src/mainServer.cpp 
+${OBJECTDIR}/src/serverMainF.o: src/serverMainF.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/mainServer.o src/mainServer.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/serverMainF.o src/serverMainF.cpp
+
+${OBJECTDIR}/src/hibridMainF.o: src/hibridMainF.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/hibridMainF.o src/hibridMainF.cpp
+
+${OBJECTDIR}/src/clientMainF.o: src/clientMainF.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/clientMainF.o src/clientMainF.cpp
 
 # Subprojects
 .build-subprojects:

@@ -5,135 +5,135 @@
         @brief A member method that insert x,y to elem
         @param *array an integer pointer
     @return 
-*/
-void printArray(int *array)
-{
+ */
+//void printArray(int *array) {
+//
+//    int i;
+//    for (i = 0; i < 250; i++)
+//        printf("%d: %3d\n", i, array[i]);
+//}
 
-    int i;
-    for(i = 0; i < ARRAY_SIZE_LEVEL_2; i++)
-        printf("%d: %3d\n", i, array[i]);
-}
-
-int compair(const void *x1, const void *x2)
-{
+int compairS(const void *x1, const void *x2) {
 
     int elem1 = *(const int*) x1;
     int elem2 = *(const int*) x2;
 
-    return (elem1 < elem2)? -1 : 1;
+    return (elem1 < elem2) ? -1 : 1;
 }
 
-void Server::createServer()
-{
+void Server::createServer() {
     int reuse_addr = 1;
     struct sockaddr_in serverAddr;
 
-    sockServer = socket(AF_INET, SOCK_STREAM, 0);
+    sockServer_ = socket(AF_INET, SOCK_STREAM, 0);
 
-    if(sockServer < 0) {
+    if (sockServer_ < 0) {
         perror("sockServer");
         exit(EXIT_FAILURE);
     }
 
-    setsockopt(sockServer, SOL_SOCKET, SO_REUSEADDR, &reuse_addr, sizeof(reuse_addr));
+    setsockopt(sockServer_, SOL_SOCKET, SO_REUSEADDR, &reuse_addr, sizeof (reuse_addr));
 
-    bzero(&serverAddr, sizeof(serverAddr));
+    bzero(&serverAddr, sizeof (serverAddr));
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    serverAddr.sin_port = htons(port);
+    serverAddr.sin_port = htons(port_);
 
-    if(bind(sockServer, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0) {
+    if (bind(sockServer_, (struct sockaddr *) &serverAddr, sizeof (serverAddr)) < 0) {
         perror("bind");
-        close(sockServer);
+        close(sockServer_);
         exit(EXIT_FAILURE);
     }
 
-    listen(sockServer, NUM_MAX_CLIENT+1);
+    listen(sockServer_, NUM_MAX_CLIENT + 1);
 
-    listener.fd = sockServer;
+    listener.fd = sockServer_;
     listener.events = POLLRDNORM;
 }
 
-void Server::start()
-{
+void Server::startServer() {
     threadConnection = new boost::thread(&Server::acceptConnection, this);
-    threadMerger = new boost::thread(&Server::isReady, this);
+    threadReply = new boost::thread(&Server::isReady, this);
 }
 
-void Server::join()
-{
-    threadMerger->join();
+void Server::joinServer() {
+    threadReply->join();
 }
 
-void Server::acceptConnection()
-{
-    while(numClient < NUM_MAX_CLIENT) {
+void Server::acceptConnection() {
+    while (numClient_ < NUM_MAX_CLIENT) {
 
-        mutex.lock();
+        svrMutex.lock();
 
-        connection[indexConnect]  = poll(&listener, 1, 100);
+        connection_[indexConnect_] = poll(&listener, 1, 100);
 
-        if(connection[indexConnect] > 0) {
+        if (connection_[indexConnect_] > 0) {
 
-            connection[indexConnect] = accept(sockServer, NULL, NULL);
-            listenerConnection[indexConnect].fd = connection[indexConnect];
-            listenerConnection[indexConnect].events = POLLRDNORM;
+            connection_[indexConnect_] = accept(sockServer_, NULL, NULL);
+            listenerConnection[indexConnect_].fd = connection_[indexConnect_];
+            listenerConnection[indexConnect_].events = POLLRDNORM;
 
-            threadClient[indexConnect] = new boost::thread(&Server::listenerClient, this, listenerConnection[indexConnect]);
-            indexConnect++;
-            numClient++;
+            threadClient[indexConnect_] = new boost::thread(&Server::listenerClient, this, listenerConnection[indexConnect_]);
+            indexConnect_++;
+            numClient_++;
         }
 
-        mutex.unlock();
+        svrMutex.unlock();
         usleep(1000);
     }
 }
 
-void Server::listenerClient(struct pollfd pollClient)
-{
-    //struct pollfd pollClient = *((struct pollfd *)arg);
+void Server::listenerClient(struct pollfd pollClient) {
     int client;
 
-    while(listenerReady) {
+    while (svrListenerReady_) {
 
-        mutex.lock();
+        svrMutex.lock();
 
-        client  = poll(&pollClient, 1, 100);
-        if(client > 0) {
+        client = poll(&pollClient, 1, 100);
+        if (client > 0) {
 
-            recv(pollClient.fd, array+indexArray, sizeof(int)*ARRAY_SIZE_LEVEL_2/2, 0);
+            recv(pollClient.fd, array_ + indexArray_, sizeof (int) * sArraySize_ / 2, MSG_WAITALL);
 
-            if(pollClient.fd == connection[0])
-                indexArray = ARRAY_SIZE_LEVEL_2/2;
+            if (pollClient.fd == connection_[0])
+                indexArray_ = sArraySize_ / 2;
             else {
-                if(pollClient.fd == connection[1]) {
-                    clientReady = 1;
-                    listenerReady = 0;
+                if (pollClient.fd == connection_[1]) {
+                    clientReady_ = 1;
+                    svrListenerReady_ = 0;
+                    if (isFinalServer_) {
+                        isDataReady_ = 1;
+                    }
                 }
             }
         }
-        mutex.unlock();
+        svrMutex.unlock();
         usleep(1000);
     }
 }
 
-void Server::isReady()
-{
-    while(workArray) {
-        mutex.lock();
+void Server::isReady() {
+    array_ = (int *) malloc(sizeof (int) * sArraySize_);
 
-        if(clientReady) {
+    while (workArray_) {
+        svrMutex.lock();
 
-            qsort(array, ARRAY_SIZE_LEVEL_2, sizeof(int), compair);
-            printArray(array);
+        if (clientReady_ && isDataReady_) {
+            if (isFinalServer_) {
 
-            send(connection[0],array, sizeof(array), 0);
-            send(connection[1],array, sizeof(array), 0);
+                qsort(array_, sArraySize_, sizeof (int), compairS);
+                send(connection_[0], array_, sizeof (int) *sArraySize_, 0);
+                send(connection_[1], array_, sizeof (int) *sArraySize_, 0);
 
-            workArray = 0;
+            } else {
+                send(connection_[0], returnArray_, sizeof (returnArray_), 0);
+                send(connection_[1], returnArray_, sizeof (returnArray_), 0);
+            }
+            free(array_);
+            workArray_ = 0;
         }
 
         usleep(1000);
-        mutex.unlock();
+        svrMutex.unlock();
     }
 }
