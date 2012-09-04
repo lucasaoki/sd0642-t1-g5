@@ -11,13 +11,16 @@ JFLAGS = -g -d
 JAVASRCDIR = java_src/
 JAVACLIENTDIR = $(JAVASRCDIR)client/
 
-all: mainServer mainClient client.class
+all: serverCpp clientCpp serverInterCpp client.class
 
-mainServer:	$(SRCDIR)mainServer.cpp $(SRCDIR)Server.cpp
-	$(CXX) $(CXXFLAGS) $(EXECDIR)serverInterCplusplus $(SRCDIR)mainServer.cpp $(SRCDIR)Server.cpp $(IFLAGS) $(LDFLAGS) 
+serverCpp:	$(SRCDIR)cppMainServer.cpp $(SRCDIR)ServerCpp.cpp
+	$(CXX) $(CXXFLAGS) $(EXECDIR)serverCpp $(SRCDIR)cppMainServer.cpp $(SRCDIR)ServerCpp.cpp $(IFLAGS) $(LDFLAGS) 
 
-mainClient:	$(SRCDIR)mainClient.cpp $(SRCDIR)Client.cpp
-	$(CXX) $(CXXFLAGS) $(EXECDIR)clientCplusplus $(SRCDIR)mainClient.cpp $(SRCDIR)Client.cpp $(IFLAGS) $(LDFLAGS)
+clientCpp:	$(SRCDIR)cppMainClient.cpp $(SRCDIR)ClientCpp.cpp
+	$(CXX) $(CXXFLAGS) $(EXECDIR)clientCpp $(SRCDIR)cppMainClient.cpp $(SRCDIR)ClientCpp.cpp $(IFLAGS) $(LDFLAGS)
+	
+serverInterCpp:	$(SRCDIR)cppMainInter.cpp $(SRCDIR)ServerInterCpp.cpp $(SRCDIR)ServerCpp.cpp $(SRCDIR)ClientCpp.cpp
+	$(CXX) $(CXXFLAGS) $(EXECDIR)serverInterCpp $(SRCDIR)cppMainInter.cpp $(SRCDIR)ServerInterCpp.cpp $(SRCDIR)ServerCpp.cpp $(SRCDIR)ClientCpp.cpp $(IFLAGS) $(LDFLAGS)
 	
 client.class: $(JAVACLIENTDIR)Client.java
 	$(JC) $(JFLAGS) $(EXECDIR) $(JAVACLIENTDIR)Client.java	

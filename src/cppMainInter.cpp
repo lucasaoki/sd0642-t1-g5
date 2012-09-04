@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include "../include/Client.h"
+#include "../include/ServerInterCpp.h"
 
 /**
     @namespace nameTest include all for test    
@@ -13,15 +13,14 @@ int main(int argc, char** argv) {
 
     srand(time(NULL));
 
-    if (argc < 3) {
+    if (argc < 5) {
         fprintf(stderr, "usage %s hostname port\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
-    Client myClient(argv[1], argv[2]);
-    myClient.startClient();
-    myClient.joinClient();
-    myClient.closeSocket();
+    ServerInterCpp hibridSC(argv);
+    hibridSC.start();
+    hibridSC.join();
 
     return 0;
 }

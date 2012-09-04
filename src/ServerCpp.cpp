@@ -1,4 +1,4 @@
-#include "../include/Server.h"
+#include "../include/ServerCpp.h"
 
 /**
         @fn void printArray(int *array)
@@ -21,7 +21,7 @@ int compairS(const void *x1, const void *x2) {
     return (elem1 < elem2) ? -1 : 1;
 }
 
-void Server::createServer() {
+void ServerCpp::createServer() {
     int reuse_addr = 1;
     struct sockaddr_in serverAddr;
 
@@ -51,16 +51,16 @@ void Server::createServer() {
     listener.events = POLLRDNORM;
 }
 
-void Server::startServer() {
-    threadConnection = new boost::thread(&Server::acceptConnection, this);
-    threadReply = new boost::thread(&Server::isReady, this);
+void ServerCpp::startServer() {
+    threadConnection = new boost::thread(&ServerCpp::acceptConnection, this);
+    threadReply = new boost::thread(&ServerCpp::isReady, this);
 }
 
-void Server::joinServer() {
+void ServerCpp::joinServer() {
     threadReply->join();
 }
 
-void Server::acceptConnection() {
+void ServerCpp::acceptConnection() {
     while (numClient_ < NUM_MAX_CLIENT) {
 
         svrMutex.lock();
@@ -73,7 +73,7 @@ void Server::acceptConnection() {
             listenerConnection[indexConnect_].fd = connection_[indexConnect_];
             listenerConnection[indexConnect_].events = POLLRDNORM;
 
-            threadClient[indexConnect_] = new boost::thread(&Server::listenerClient, this, listenerConnection[indexConnect_]);
+            threadClient[indexConnect_] = new boost::thread(&ServerCpp::listenerClient, this, listenerConnection[indexConnect_]);
             indexConnect_++;
             numClient_++;
         }
@@ -83,7 +83,7 @@ void Server::acceptConnection() {
     }
 }
 
-void Server::listenerClient(struct pollfd pollClient) {
+void ServerCpp::listenerClient(struct pollfd pollClient) {
     int client;
 
     while (svrListenerReady_) {
@@ -112,7 +112,7 @@ void Server::listenerClient(struct pollfd pollClient) {
     }
 }
 
-void Server::isReady() {
+void ServerCpp::isReady() {
     array_ = (int *) malloc(sizeof (int) * sArraySize_);
 
     while (workArray_) {
