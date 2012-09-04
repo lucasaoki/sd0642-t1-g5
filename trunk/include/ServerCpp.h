@@ -35,10 +35,10 @@
 
         A class to test draw inheritance        
  */
-class Server {
+class ServerCpp {
 public:
 
-    Server(char *port) {
+    ServerCpp(char *port) {
         port_ = atoi(port);
         sArraySize_ = SIZE_ARRAY_RET;
         clientReady_ = 0;

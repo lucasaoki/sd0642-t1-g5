@@ -1,13 +1,13 @@
-#include "../include/Client.h"
+#include "../include/ClientCpp.h"
 
-void Client::randomArray(int *array) {
+void ClientCpp::randomArray(int *array) {
     int i;
 
     for (i = 0; i < cArraySize_; i++)
         array[i] = rand() % 999;
 }
 
-void Client::printArray(int *array, int numElem) {
+void ClientCpp::printArray(int *array, int numElem) {
     int i;
 
     for (i = 0; i < numElem; i++)
@@ -22,21 +22,21 @@ int compairC(const void *x1, const void *x2) {
     return (elem1 < elem2) ? -1 : 1;
 }
 
-void Client::startClient() {
-    threadConnection = new boost::thread(&Client::connectionToServer, this);
-    threadWork = new boost::thread(&Client::work, this);
+void ClientCpp::startClient() {
+    threadConnection = new boost::thread(&ClientCpp::connectionToServer, this);
+    threadWork = new boost::thread(&ClientCpp::work, this);
 }
 
-void Client::joinClient() {
+void ClientCpp::joinClient() {
     threadConnection->join();
     threadListenServer->join();
 }
 
-void Client::closeSocket() {
+void ClientCpp::closeSocket() {
     close(my_socket_);
 }
 
-void Client::connectionToServer() {
+void ClientCpp::connectionToServer() {
     while (tryConnection_) {
 
         my_socket_ = socket(AF_INET, SOCK_STREAM, 0);
@@ -64,13 +64,13 @@ void Client::connectionToServer() {
             tryWork_ = 1;
             listenerServer.fd = my_socket_;
             listenerServer.events = POLLRDNORM;
-            threadListenServer = new boost::thread(&Client::listenerData, this, listenerServer);
+            threadListenServer = new boost::thread(&ClientCpp::listenerData, this, listenerServer);
         }
         sleep(2);
     }
 }
 
-void Client::work() {
+void ClientCpp::work() {
     int array[cArraySize_];
 
     while (doWork_) {
@@ -85,7 +85,7 @@ void Client::work() {
     }
 }
 
-void Client::listenerData(struct pollfd pollClient) {
+void ClientCpp::listenerData(struct pollfd pollClient) {
     int client;
 
     while (cltListenerReady_) {

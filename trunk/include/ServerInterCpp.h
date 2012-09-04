@@ -9,8 +9,8 @@
 #ifndef SERVCLIENT_H
 #define SERVCLIENT_H
 
-#include "Server.h"
-#include "Client.h"
+#include "ServerCpp.h"
+#include "ClientCpp.h"
 
 /** 
         @class Client Client.h "include/Client.h"
@@ -18,7 +18,7 @@
 
         A class to test draw inheritance        
  */
-class ServClient : public Server, Client {
+class ServerInterCpp : public ServerCpp, ClientCpp {
 public:
 
     /**
@@ -27,7 +27,7 @@ public:
         servclient,     ./x portaDele nivel ipServer portaServer
     -------------------------------------------------------------
      */
-    ServClient(char* argv[]) : Server(argv[1]), Client(argv[3], argv[4]) {
+    ServerInterCpp(char* argv[]) : ServerCpp(argv[1]), ClientCpp(argv[3], argv[4]) {
         setArraySize(atoi(argv[2]));
         isFinalServer_ = 0;
         waitingData = 1;

@@ -37,13 +37,13 @@
 
         A class to test draw inheritance        
  */
-class Client {
+class ClientCpp {
 public:
 
     /**
 
      */
-    Client(char *serverName, char *port) {
+    ClientCpp(char *serverName, char *port) {
         cArraySize_ = SIZE_ARRAY_RET / 8;
         cltListenerReady_ = 1;
         tryWork_ = 0;

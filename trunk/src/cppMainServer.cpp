@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include "../include/Server.h"
+#include "../include/ServerCpp.h"
 
 /**
         @namespace nameTest include all for test	
@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
         exit(EXIT_FAILURE);
     }
 
-    Server myServer(argv[1]);
+    ServerCpp myServer(argv[1]);
     myServer.startServer();
     myServer.joinServer();
 

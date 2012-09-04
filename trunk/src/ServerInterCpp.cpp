@@ -1,18 +1,18 @@
-#include "../include/ServClient.h"
+#include "../include/ServerInterCpp.h"
 
-void ServClient::start() {
-    dataReady = new boost::thread(&ServClient::dataReady, this);
+void ServerInterCpp::start() {
+    dataReady = new boost::thread(&ServerInterCpp::dataReady, this);
     this->startServer();
     this->startClient();
 }
 
-void ServClient::join() {
+void ServerInterCpp::join() {
     dataReady->join();
     this->joinServer();
     this->joinClient();
 }
 
-void ServClient::setArraySize(int level) {
+void ServerInterCpp::setArraySize(int level) {
     switch (level) {
         case 1: cArraySize_ = 125;
             break;
@@ -25,7 +25,7 @@ void ServClient::setArraySize(int level) {
     }
 }
 
-void ServClient::dataIsReady() {
+void ServerInterCpp::dataIsReady() {
     while (waitingData) {
 
         svrMutex.lock();
