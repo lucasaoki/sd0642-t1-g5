@@ -7,21 +7,59 @@
 % \def\lastedit{2010-03-16 17:56:58 by stolfi}
 
 \nonstopmode % PARA RODAR LATEX EM BATCH MODE
-\documentclass[11pt,twoside]{article}
-
-
-%%% SE USAR INGLÊS, TROQUE AS ATIVAÇÕES DOS DOIS COMANDOS A SEGUIR:
-\usepackage[brazil]{babel}
-%% \usepackage[english]{babel}
-
-%%% SE USAR CODIFICAÇÃO LATIN1 OU UTF-8, ATIVE UM DOS DOIS COMANDOS A
-%%% SEGUIR:
-%%\usepackage[latin1]{inputenc}
+\documentclass[12pt,a4paper]{article}
+%\usepackage{fullpage,doublespace}
+\usepackage[english,portuges,brazil]{babel}
 \usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{setspace} 
+\usepackage[T1]{fontenc}
+\usepackage[center]{caption}
+\setstretch{1.5}
 
-%%% Para obter o tamanho de texto recomendado:
-\usepackage[margin=1in]{geometry}
+\parindent
+\usepackage{parskip}
 
+%\usepackage[alf,abnt-etal-list=0]{abntcite}
+\bibliographystyle{plain}    %eesc.stb
+
+%Pacotes para Figuras
+%\usepackage[dvips]{graphicx} % Importar figuras
+\usepackage{graphicx} % Importar figuras
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{wrapfig} %Permite colocar figuras ao lado do texto
+%\usepackage{floatflt}
+\usepackage{subfigure}
+
+
+% Pacotes matemáticos
+\usepackage{amsmath} % Caracteres matemáticos
+\usepackage[normalem]{ulem}
+\usepackage{amsfonts} % Fontes p/ conjuntos: R,Z,H,...
+\usepackage{amssymb}
+\usepackage{theorem}
+\usepackage{latexsym}
+\usepackage{amsxtra}
+%\usepackage{times}
+
+
+%%%%% Pacotes especiais
+\usepackage[normalem]{ulem}
+\usepackage{epigraph}
+\usepackage{bm}
+\usepackage{textcomp}
+\usepackage{color}
+
+
+\usepackage{setspace}
+\usepackage{sectsty}
+\usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
+
+%\usepackage{floatflt}
+\usepackage{multirow}
+
+\usepackage{datetime}
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,7 +70,7 @@
 \title{Sistemas Distruibuídos}
 
 \author{Lucas Aoki Heredia\thanks{Eng. de Computação, USP, São Carlos, SP. \texttt{Aoki@.......}} \and
-Gilberto Volpe Neto\thanks{Eng. de Computação, USP, São Carlos, SP.  \texttt{Volpe@.....}} \and
+Gilberto Volpe Neto\thanks{Eng. de Computação, USP, São Carlos, SP.  \texttt{gilvolpe@grad.icmc.usp.br}} \and
 Rafael Seiji Ishibe\thanks{Eng. de Computação, USP, São Carlos, SP.  \texttt{ishibers@grad.icmc.usp.br}}}
 
 \date{}
@@ -191,10 +229,6 @@ A entrada dos clientes foram os vetores:
 Tabela das entradas
 
 As respostas de tempo e de recebimento no final estão expressas abaixo:
-
-
-
-
 
 \newpage
 \begin{thebibliography}{99}
