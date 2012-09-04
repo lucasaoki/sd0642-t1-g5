@@ -4,7 +4,7 @@
     
     @index 
     The documentation became beautifull
-*/
+ */
 
 #ifndef SERVER_H
 #define	SERVER_H
@@ -23,31 +23,36 @@
 
 #define MAXELEM 2
 #define NUM_MAX_CLIENT 2
-#define ARRAY_SIZE_LEVEL_2 250
-#define ARRAY_SIZE_LEVEL_3 500
-#define ARRAY_SIZE_LEVEL_4 1000
+#define SIZE_ARRAY_RET 1000
+
+//#define ARRAY_SIZE_LEVEL_2 250
+//#define ARRAY_SIZE_LEVEL_3 500
+//#define ARRAY_SIZE_LEVEL_4 1000
 
 /** 
         @class Server Server.h "include/Server.h"
         @brief A class for teste doxygen file
 
         A class to test draw inheritance        
-*/
-class Server
-{
+ */
+class Server {
 public:
-    Server(char *port_) {
-        port = atoi(port_);
-        clientReady = 0;
-        numClient = 0;
-        listenerReady = 1;
-        workArray = 1;
-        indexArray = 0;
-        indexConnect = 0;
+
+    Server(char *port) {
+        port_ = atoi(port);
+        sArraySize_ = SIZE_ARRAY_RET;
+        clientReady_ = 0;
+        numClient_ = 0;
+        svrListenerReady_ = 1;
+        workArray_ = 1;
+        indexArray_ = 0;
+        indexConnect_ = 0;
+        isFinalServer_ = 1;
+        isDataReady_ = 0;
         createServer();
     }
-    void start();
-    void join();
+    void startServer();
+    void joinServer();
 
 protected:
     /**
@@ -55,17 +60,22 @@ protected:
         @brief Server's socket
         @var clientReady
         @brief Client flag
-    */
-    int sockServer;
-    int clientReady;
-    int numClient;
-    int listenerReady;
-    int workArray;
-    int indexArray;
-    int indexConnect;
-    int array[ARRAY_SIZE_LEVEL_2];
-    int connection[NUM_MAX_CLIENT];
-    int port;
+     */
+    int port_;
+    int sockServer_;
+    int isDataReady_;
+    int isFinalServer_;
+    int clientReady_;
+    int numClient_;
+    int svrListenerReady_;
+    int workArray_;
+    int indexArray_;
+    int indexConnect_;
+    int sArraySize_;
+    int *array_;
+    int returnArray_[SIZE_ARRAY_RET];
+    int connection_[NUM_MAX_CLIENT];
+    boost::mutex svrMutex;
 
     struct pollfd listener;
     struct pollfd listenerConnection[NUM_MAX_CLIENT];
@@ -73,14 +83,13 @@ protected:
 
     boost::thread *threadConnection;
     boost::thread *threadClient[NUM_MAX_CLIENT];
-    boost::thread *threadMerger;
+    boost::thread *threadReply;
 
 private:
     /**
 
-    */
+     */
     void createServer();
-    boost::mutex mutex;
     void acceptConnection();
     void listenerClient(struct pollfd pollClient);
     void isReady();

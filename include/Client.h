@@ -4,7 +4,14 @@
     
     @index 
     The documentation became beautifull
-*/
+ */
+
+/**
+-------------------------------------------------------------
+    client puro,    ./x ipServer porta
+    servclient,     ./x portaDele nivel ipServer portaServer
+-------------------------------------------------------------
+ */
 
 #ifndef CLIENT_H
 #define CLIENT_H
@@ -18,49 +25,51 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-#include <pthread.h>
 #include <fcntl.h>
 #include <poll.h>
 #include <boost/thread.hpp>
 
-#define ARRAY_SIZE_LEVEL_1 125
+#define SIZE_ARRAY_RET 1000
 
 /** 
-        @class Clinet Client.h "include/Client.h"
+        @class Client Client.h "include/Client.h"
         @brief A class for teste doxygen file
 
         A class to test draw inheritance        
-*/
-class Client
-{
+ */
+class Client {
 public:
+
     /**
 
-    */
-    Client(char *argv[]) {
-        listenerReady = 1;
-        tryWork = 0;
-        doWork = 1;
-        tryConnection = 1;
-        strcpy(serverName, argv[1]);
-        port = atoi(argv[2]);
+     */
+    Client(char *serverName, char *port) {
+        cArraySize_ = SIZE_ARRAY_RET / 8;
+        cltListenerReady_ = 1;
+        tryWork_ = 0;
+        doWork_ = 1;
+        tryConnection_ = 1;
+        strcpy(serverName_, serverName);
+        port_ = atoi(port);
     }
-    void start();
-    void join();
+    void startClient();
+    void joinClient();
     void closeSocket();
 
 protected:
     /**
 
-    */
-    char serverName[20];
-    int my_socket;
-    int port;
-    int listenerReady;
-    int tryWork;
-    int doWork;
-    int tryConnection;
-    int array[ARRAY_SIZE_LEVEL_1];
+     */
+    char serverName_[20];
+    int my_socket_;
+    int port_;
+    int cltListenerReady_;
+    int tryWork_;
+    int doWork_;
+    int tryConnection_;
+    int cArraySize_;
+    int arrayReply[SIZE_ARRAY_RET];
+    boost::mutex cltMutex;
 
     struct sockaddr_in serv_addr;
     struct hostent *server;
@@ -73,12 +82,12 @@ protected:
 private:
     /**
 
-    */
-    void startClient();
-    boost::mutex mutex;
+     */
     void connectionToServer();
     void work();
     void listenerData(struct pollfd pollClient);
+    void randomArray(int *array);
+    void printArray(int *array, int numElem);
 };
 
 #endif /* CLIENT_H */

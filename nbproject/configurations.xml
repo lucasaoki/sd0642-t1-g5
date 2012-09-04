@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>include/Client.h</itemPath>
+      <itemPath>include/ServClient.h</itemPath>
       <itemPath>include/Server.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -15,9 +16,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/Client.cpp</itemPath>
+      <itemPath>src/ServClient.cpp</itemPath>
       <itemPath>src/Server.cpp</itemPath>
-      <itemPath>src/mainClient.cpp</itemPath>
-      <itemPath>src/mainServer.cpp</itemPath>
+      <itemPath>src/clientMainF.cpp</itemPath>
+      <itemPath>src/hibridMainF.cpp</itemPath>
+      <itemPath>src/serverMainF.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
