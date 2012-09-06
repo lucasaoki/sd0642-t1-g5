@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 
     srand(time(NULL));
 
-    if (argc < 5) {
+    if (argc < 4) {
         fprintf(stderr, "usage %s hostname port\n", argv[0]);
         exit(EXIT_FAILURE);
     }

@@ -1,12 +1,12 @@
 #!/bin/bash 	
 
-basepath=doc/programsOut/
+base=../
+basepath=${base}doc/programsOut/
 pathDocClient=${basepath}clients/
 ipConnectionServerLevel2={"0" "localhost" "localhost"}
-binfolder=bin/
+binfolder=${base}bin/
 
-
-portServer2=("0" "51000" "51000")
+portServer2=("0" "20003" "20003")
 
 for i in `seq 1 2`; do
 	echo Cliente C $i
