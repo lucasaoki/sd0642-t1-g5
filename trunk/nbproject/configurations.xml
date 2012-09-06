@@ -4,9 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>include/Client.h</itemPath>
-      <itemPath>include/ServClient.h</itemPath>
-      <itemPath>include/Server.h</itemPath>
+      <itemPath>include/ClientCpp.h</itemPath>
+      <itemPath>include/ServerCpp.h</itemPath>
+      <itemPath>include/ServerInterCpp.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -15,12 +15,12 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/Client.cpp</itemPath>
-      <itemPath>src/ServClient.cpp</itemPath>
-      <itemPath>src/Server.cpp</itemPath>
-      <itemPath>src/clientMainF.cpp</itemPath>
-      <itemPath>src/hibridMainF.cpp</itemPath>
-      <itemPath>src/serverMainF.cpp</itemPath>
+      <itemPath>src/ClientCpp.cpp</itemPath>
+      <itemPath>src/ServerCpp.cpp</itemPath>
+      <itemPath>src/ServerInterCpp.cpp</itemPath>
+      <itemPath>src/cppMainClient.cpp</itemPath>
+      <itemPath>src/cppMainInter.cpp</itemPath>
+      <itemPath>src/cppMainServer.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
