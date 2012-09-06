@@ -35,12 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/Client.o \
-	${OBJECTDIR}/src/Server.o \
-	${OBJECTDIR}/src/ServClient.o \
-	${OBJECTDIR}/src/serverMainF.o \
-	${OBJECTDIR}/src/hibridMainF.o \
-	${OBJECTDIR}/src/clientMainF.o
+	${OBJECTDIR}/src/cppMainServer.o \
+	${OBJECTDIR}/src/ClientCpp.o \
+	${OBJECTDIR}/src/cppMainClient.o \
+	${OBJECTDIR}/src/cppMainInter.o \
+	${OBJECTDIR}/src/ServerCpp.o \
+	${OBJECTDIR}/src/ServerInterCpp.o
 
 
 # C Compiler Flags
@@ -67,35 +67,35 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trunk: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trunk ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/src/Client.o: src/Client.cpp 
+${OBJECTDIR}/src/cppMainServer.o: src/cppMainServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Client.o src/Client.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/cppMainServer.o src/cppMainServer.cpp
 
-${OBJECTDIR}/src/Server.o: src/Server.cpp 
+${OBJECTDIR}/src/ClientCpp.o: src/ClientCpp.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Server.o src/Server.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClientCpp.o src/ClientCpp.cpp
 
-${OBJECTDIR}/src/ServClient.o: src/ServClient.cpp 
+${OBJECTDIR}/src/cppMainClient.o: src/cppMainClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServClient.o src/ServClient.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/cppMainClient.o src/cppMainClient.cpp
 
-${OBJECTDIR}/src/serverMainF.o: src/serverMainF.cpp 
+${OBJECTDIR}/src/cppMainInter.o: src/cppMainInter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/serverMainF.o src/serverMainF.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/cppMainInter.o src/cppMainInter.cpp
 
-${OBJECTDIR}/src/hibridMainF.o: src/hibridMainF.cpp 
+${OBJECTDIR}/src/ServerCpp.o: src/ServerCpp.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/hibridMainF.o src/hibridMainF.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServerCpp.o src/ServerCpp.cpp
 
-${OBJECTDIR}/src/clientMainF.o: src/clientMainF.cpp 
+${OBJECTDIR}/src/ServerInterCpp.o: src/ServerInterCpp.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/clientMainF.o src/clientMainF.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServerInterCpp.o src/ServerInterCpp.cpp
 
 # Subprojects
 .build-subprojects:
