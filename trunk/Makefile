@@ -39,3 +39,7 @@ serverInterCpp:	$(SRCDIR)cppMainInter.cpp $(SRCDIR)ServerInterCpp.cpp $(SRCDIR)S
 	
 client.class: $(JAVACLIENTDIR)Client.java
 	$(JC) $(JFLAGS) $(EXECDIR) $(JAVACLIENTDIR)Client.java	
+	
+clean:
+	rm $(EXECDIR)*	
+	
