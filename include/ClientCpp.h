@@ -71,6 +71,8 @@ protected:
     int arrayReply[SIZE_ARRAY_RET];
     boost::mutex cltMutex;
 
+    struct timeval iniTime, finalTime;
+    struct timeval iniConnTime, finalConnTime;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     struct pollfd listenerServer;
@@ -88,6 +90,7 @@ private:
     void listenerData(struct pollfd pollClient);
     void randomArray(int *array);
     void printArray(int *array, int numElem);
+    void printTime();
 };
 
 #endif /* CLIENT_H */

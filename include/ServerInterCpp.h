@@ -34,6 +34,7 @@ public:
     }
     void start();
     void join();
+    void closeSocket();
 
 protected:
     int waitingData;

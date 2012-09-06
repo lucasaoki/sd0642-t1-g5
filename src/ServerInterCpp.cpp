@@ -12,6 +12,10 @@ void ServerInterCpp::join() {
     this->joinClient();
 }
 
+void ServerInterCpp::closeSocket() {
+    this->closeSocket();
+}
+
 void ServerInterCpp::setArraySize(int level) {
     switch (level) {
         case 1: cArraySize_ = 125;

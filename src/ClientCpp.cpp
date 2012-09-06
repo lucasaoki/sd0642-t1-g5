@@ -14,6 +14,22 @@ void ClientCpp::printArray(int *array, int numElem) {
         printf("%d: %3d\n", i, array[i]);
 }
 
+void ClientCpp::printTime() {
+    double sec1, msec1, usec1;
+    double sec2, msec2, usec2;
+
+    sec1 = finalTime.tv_sec - iniTime.tv_sec;
+    sec2 = finalConnTime.tv_sec - iniConnTime.tv_sec;
+    usec1 = finalTime.tv_usec - iniTime.tv_usec;
+    usec2 = finalConnTime.tv_usec - iniConnTime.tv_usec;
+    msec1 = sec1 * 1000 + usec1 / 1000;
+    msec2 = sec2 * 1000 + usec2 / 1000;
+
+    std::cout << "Total time for ordering:" << msec1 << "milliseconds" << std::endl;
+    std::cout << "Total connection time:" << msec1 << "milliseconds" << std::endl;
+
+}
+
 int compairC(const void *x1, const void *x2) {
 
     int elem1 = *(const int*) x1;
@@ -33,6 +49,8 @@ void ClientCpp::joinClient() {
 }
 
 void ClientCpp::closeSocket() {
+    gettimeofday(&finalTime, NULL);
+    printTime();
     close(my_socket_);
 }
 
@@ -58,8 +76,9 @@ void ClientCpp::connectionToServer() {
         if (my_socket_ > 0 && (connect(my_socket_, (struct sockaddr *) &serv_addr, sizeof (struct sockaddr))) < 0) {
             close(my_socket_);
             perror("connect");
-            printf("It'll try again after 2 seconds\n");
+            printf("Retrying after 2 seconds\n");
         } else {
+
             tryConnection_ = 0;
             tryWork_ = 1;
             listenerServer.fd = my_socket_;
@@ -75,8 +94,10 @@ void ClientCpp::work() {
 
     while (doWork_) {
         if (tryWork_) {
+            gettimeofday(&iniTime, NULL);
             randomArray(array);
             qsort(array, cArraySize_, sizeof (int), compairC);
+            gettimeofday(&iniConnTime, NULL);
             send(my_socket_, array, sizeof (array), 0);
 
             doWork_ = 0;
@@ -96,6 +117,7 @@ void ClientCpp::listenerData(struct pollfd pollClient) {
         if (client > 0) {
 
             recv(pollClient.fd, arrayReply, sizeof (int) * SIZE_ARRAY_RET, MSG_WAITALL);
+            gettimeofday(&finalConnTime, NULL);
             printArray(arrayReply, SIZE_ARRAY_RET);
             cltListenerReady_ = 0;
         }
