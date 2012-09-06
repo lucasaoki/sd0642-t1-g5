@@ -2,14 +2,13 @@
 
 basepath=doc/programsOut/
 pathDocClient=${basepath}clients/
-ipConnectionServerLevel2={"0" "localhost" "localhost" "localhost" "localhots"}
+ipConnectionServerLevel2=("0" "172.27.115.100" "172.27.115.100" "172.27.115.100" "172.27.115.100")
 binfolder=bin/
 
-
-portServer2=("0" "41003" "41003" "41004" "41004" "41005" "41005" "41006" "41006")
+portServer2=("0" "51001" "51001" "51002" "51002")
 
 for i in `seq 1 4`; do
-	echo Cliente $i
-	javac $(binfolder)Cliente ${ipConnectionServerLevel2[$i]} ${portServer2[$i]} >> ${pathDocClient}clientJava$i.txt &
+	echo Cliente Java $i
+	javac $(binfolder)Client ${ipConnectionServerLevel2[$i]} ${portServer2[$i]} > ${pathDocClient}clientJava$i.txt &
 done
 
