@@ -1,5 +1,3 @@
-package serverclient;
-
 import java.net.*;
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -148,4 +146,3 @@ public class Client {
 	private double totalTime;
 	private double comunicationTime;
 }
-
