@@ -24,6 +24,7 @@ void process(const struct rusage r){
 
 void createServer(int *sockServidor,const int port){
 	
+	int reuse_addr = 1;
 	struct sockaddr_in server_address;
 	
 	*sockServidor = socket(AF_INET, SOCK_STREAM, 0);
@@ -31,7 +32,8 @@ void createServer(int *sockServidor,const int port){
 		perror("sockServidoret");
 		exit(EXIT_FAILURE);
 	}
-		
+	
+	setsockopt(*sockServidor, SOL_SOCKET, SO_REUSEADDR, &reuse_addr, sizeof (reuse_addr));	
 	bzero(&server_address, sizeof(server_address));
 	server_address.sin_family = AF_INET;
 	server_address.sin_addr.s_addr = htonl(INADDR_ANY);

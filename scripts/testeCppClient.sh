@@ -3,7 +3,7 @@
 base=../
 basepath=${base}doc/programsOut/
 pathDocClient=${basepath}clients/
-ipConnectionServerLevel2=("0" "172.27.115.100" "172.27.115.100")
+ipConnectionServerLevel2=("0" "localhost" "localhost")
 binfolder=${base}bin/
 
 portServer2=("0" "20000" "20000")
