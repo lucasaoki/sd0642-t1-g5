@@ -69,7 +69,10 @@ na pasta script
 
 OBS: Caso não estejam com permissão de execução
 	$	chmod +x *.sh
-	
+
+PARA COMPREENSÃO DESTE CODIGO É NECESSÁRIO EXECUTAR TODOS OS 
+SCRIPTS DA PASTA SCRIPT, COM UM DISPOSITVO ANDROID EXECUTAN-
+DO O SERVIDOR FINAL	
 --------------------- DOCUMENTOS ----------------------------
 Uma versão do relatório encontra-se na pasta doc/relatorios, 
 as saídas dos testes encontram-se na pasta doc/programOut/cli
