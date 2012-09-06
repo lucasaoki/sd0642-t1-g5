@@ -1,72 +1,46 @@
-% Exemplo de relatório técnico do IC
-
-% Criado por P.J.de Rezende antes do Alvorecer da História.
-% Modificado em 97-06-15 e 01-02-26 por J.Stolfi.
-% modificado em 2003-06-07 21:12:18 por stolfi
-% modificado em 2008-10-01 por cll
-% \def\lastedit{2010-03-16 17:56:58 by stolfi}
-
 \nonstopmode % PARA RODAR LATEX EM BATCH MODE
 \documentclass[12pt,a4paper]{article}
 %\usepackage{fullpage,doublespace}
-\usepackage[english,portuges,brazil]{babel}
+\usepackage[portuges,brazil]{babel}
 \usepackage[utf8]{inputenc}
 %\usepackage[latin1]{inputenc}
 \usepackage{setspace} 
 \usepackage[T1]{fontenc}
 \usepackage[center]{caption}
-\setstretch{1.5}
-
-\parindent
-\usepackage{parskip}
-
-%\usepackage[alf,abnt-etal-list=0]{abntcite}
-\bibliographystyle{plain}    %eesc.stb
-
-%Pacotes para Figuras
-%\usepackage[dvips]{graphicx} % Importar figuras
-\usepackage{graphicx} % Importar figuras
-\usepackage{epsf}
-\usepackage{epsfig}
-\usepackage{wrapfig} %Permite colocar figuras ao lado do texto
-%\usepackage{floatflt}
-\usepackage{subfigure}
+\setstretch{2}
 
 
-% Pacotes matemáticos
-\usepackage{amsmath} % Caracteres matemáticos
-\usepackage[normalem]{ulem}
-\usepackage{amsfonts} % Fontes p/ conjuntos: R,Z,H,...
-\usepackage{amssymb}
-\usepackage{theorem}
-\usepackage{latexsym}
-\usepackage{amsxtra}
-%\usepackage{times}
-
-
-%%%%% Pacotes especiais
-\usepackage[normalem]{ulem}
-\usepackage{epigraph}
-\usepackage{bm}
-\usepackage{textcomp}
-\usepackage{color}
-
-
-\usepackage{setspace}
-\usepackage{sectsty}
+\usepackage{graphicx}
+\usepackage{url}
+%%% Para obter o tamanho de texto recomendado:
 \usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
 
-%\usepackage{floatflt}
-\usepackage{multirow}
-
-\usepackage{datetime}
 \begin{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% O que segue é apenas uma sugestão - sinta-se à vontade para
+% usar seu formato predileto, desde que as margens tenham pelo
+% menos 25mm nos quatro lados, e o tamanho do fonte seja pelo menos
+% 11pt. Certifique-se também de que o título e lista de autores
+% estão reproduzidos na íntegra na página 1, a primeira depois da
+% página de capa.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nomes de autores ABREVIADOS e titulo ABREVIADO,
+% para cabeçalhos em cada página.
+%
+\markboth{Aoki, Volpe e Ishibe}{Sistemas Distruibuídos}
+\pagestyle{myheadings}
+\date{1,1,203}
+\thispagestyle{empty}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TÍTULO e NOMES DOS AUTORES, completos, para a página 1.
 % Use "\\" para quebrar linhas, "\and" para separar autores.
 %
-
 \title{Sistemas Distruibuídos}
 
 \author{Lucas Aoki Heredia\thanks{Eng. de Computação, USP, São Carlos, SP. \texttt{Aoki@.......}} \and
@@ -79,19 +53,16 @@ Rafael Seiji Ishibe\thanks{Eng. de Computação, USP, São Carlos, SP.  \texttt{
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 \newpage
 \begin{abstract} 
 Para a conclusão desse trabalho foi necessário o entendimento do funcionamento da intercomunicação entre processos em rede, o aprendizado de thread e o manuseio das outras ferramentas propostas nesse projeto.
 O objetivo é implementar um sistema distribuído em uma interface cliente/servidor, que trocam informações entre eles e o processamento das informações é distribuído entre os servidores, quando finalizado essas operações o sistema retorna aos clientes os dados processados.
 \end{abstract}
 
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 \newpage
 \section{Introdução}
-
-  A demanda de recursos computacionais para usuários finais tais como processamento de vídeos, imagens, cálculos, etc; e a venda e o desenvolvimento de dispositivos moveis tais como tablets, smartphones, estes escassos em recursos computacionais, têm apresentado crescimento no mercado tecnológico.
+A demanda de recursos computacionais para usuários finais tais como processamento de vídeos, imagens, cálculos, etc; e a venda e o desenvolvimento de dispositivos moveis tais como tablets, smartphones, estes escassos em recursos computacionais, têm apresentado crescimento no mercado tecnológico.
 
 Voltando à época de mainframes da década de 60, o alto custo de processamento era realizado em computadores de grande porte e os terminais obtinham a resposta solicitada.
 
@@ -105,25 +76,23 @@ Neste modelo, o cliente é o software que solicita informações à outro progra
 
 Há o cliente/servidor que atua tanto como o servidor quanto cliente, o qual não só recebe uma solicitação, mas também necessita de outras, então uma nova solicitação é feita para outro servidor.
 
-Existem diversas linguagens de programação que podem implementar os algoritmos do cliente/servidor, cada um possui diferentes performances no tempo de resposta e no método de programação. Neste trabalho as seguintes linguagens foram utilizadas para implementação: Java/Android, C/C++.
+Existem diversas linguagens de programação que podem implementar os algoritmos do cliente/servidor, cada um possui diferentes performances no tempo de resposta e no método de programação. 
+Neste trabalho as seguintes linguagens foram utilizadas para implementação: Java/Android, C/C++.
 
 A análise dos diferentes algoritmos e a performance da interação entre essas quatros linguagens serão apresentadas e discutidas no decorrer deste relatório.
 
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 \newpage
 \section{Descrição do Problema}
-	O problema pode ser descrito como uma pirâmide hierárquica (Figura 1), na qual o servidor central se comunica com seus respectivos clientes/servidores, que por sua vez possuem seus próprios clientes/servidores, isso ocorre até a comunicação com seus clientes.
+O problema pode ser descrito como uma pirâmide hierárquica (Figura 1), na qual o servidor central se comunica com seus respectivos clientes/servidores, que por sua vez possuem seus próprios clientes/servidores, isso ocorre até a comunicação com seus clientes.
 
-	O cliente gera um vetor de 125 posições com valores aleatórias, e enviará este ao servidor superior (2º nível).
+O cliente gera um vetor de 125 posições com valores aleatórias, e enviará este ao servidor superior (2º nível).
 
-	Quando um servidor recebe os vetores de seus clientes, ele agrupa esses em um único vetor e o ordena para que seja enviado para os próximos níveis (3 e 4).
+Quando um servidor recebe os vetores de seus clientes, ele agrupa esses em um único vetor e o ordena para que seja enviado para os próximos níveis (3 e 4).
 
-	Quando o servidor central receber todos os vetores dos seus clientes, ele retorna a mensagem aos seus clientes com o vetor completo (com 1000 elementos) e ordenado. Essa mensagem será retransmitida para todo o resto da pirâmide como um retorno dos servidores. Quando retornado ao 1º nível, todos os clientes devem exibir o vetor completo.
+Quando o servidor central receber todos os vetores dos seus clientes, ele retorna a mensagem aos seus clientes com o vetor completo (com 1000 elementos) e ordenado. 
 
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Essa mensagem será retransmitida para todo o resto da pirâmide como um retorno dos servidores. Quando retornado ao 1º nível, todos os clientes devem exibir o vetor completo.
+
 \newpage
 \section{Ferramentas e Metodologias}
 \subsection{Ferramentas utilizadas}
@@ -147,7 +116,9 @@ A análise dos diferentes algoritmos e a performance da interação entre essas 
 \subsection{Metodologia}
 Para o estudo de como sistemas distintos se comunicam e uma maior proximidade de sistemas reais, programas em linguagens distintas foram desenvolvidos, em complementação à proposta inicial, uso da linguagem C.
 
-Java foi utilizado para o desenvolvimento dos clientes e do servidor final. Este sendo implementado em um dispositivo com Android para simular uma máquina distinta a um computador pessoal. Resultando no seguinte fluxo de dados (Figura X).
+Java foi utilizado para o desenvolvimento dos clientes e do servidor final. Este sendo implementado em um dispositivo com Android para simular uma máquina distinta a um computador pessoal. Resultando no seguinte fluxo de dados (Figura).
+
+FIGURA!!!!!!!!!!!
 
 As soluções propostas para as diferentes linguagens foram parecidas, consistem em criar um canal de comunicação entre os processos dos clientes e do servidores. Estabelecido o canal de comunicação, o servidor ficará ouvindo o canal à espera da solicitação de dois clientes, que ao ser atendida, ele receberá os dados vindo dos clientes e fará o processamento necessário.
 
@@ -157,21 +128,19 @@ Quando os dados chegam ao servidor de último nível o vetor final será constru
 
 Para uma avaliação mais concreta do modelo servidor/cliente foi realizado medições do tempo de comunicação entre os clientes e servidores. Essas medições foram realizadas somente considerando o tempo antes do envio e após o recebimento, portanto, não levando em consideração o tempo que leva para entrar no buffer do sistema, chaveamento de contexto, tempo de transmissão real. 
 
-
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \newpage
 \section{Discussão}
 \textit{\Large{Comunicação entre Linguagens Distintas}}
-\\
 
 Linguagens distintas de programação não necessariamente armazenam os dados obtidos (Bytes) da mesma forma. Conhecer a forma com a qual a linguagem armazena os dados é de suma importância para o desenvolvimento de aplicações que se comunicam com outros tipos de sistemas.
 Esta troca de dados pode ser realizada de diversas maneiras. Para solucionar o problema de comunicação entre os sistemas C/C++ e Java, foram propostas duas abordagens:
 \begin{itemize}
+
 \item{Passagem de cadeia de caracter:}
 O uso da tabela ASCII como abordagem para o envio de dados, ou seja, a conversão de todo conjunto de valores numéricos. Todavia, trata-se de uma abordagem pobre. Gerando overhead de comunicação caso o conjunto de inteiros apresente números com mais de quatro dígitos, desde que a linguagem utilizada use inteiros de quatro bytes (padrão das linguagens C/C++ e Java atualmente).
 
 Isso acontece pois ao utilizar codificação ASCII é realizado uma operação na qual cada digito seja representado por um byte, caso haja interesse em trabalhar somente com números de quatro dígitos essa abordagem torna-se eficaz, contudo no mundo real isso não é verdade pois são transmitidos número de ordem de grandezas distintas. Além disso, seria necessário a inserção de um delimitador entre os dígitos para saber quando começa e quando termina um determinado número.
+
 \item{Tratamento do \textit{byte} order}
 O tratamento do byte order para o envio e recebimento de dados permite o envio de uma quantidade fixa de bytes sem a necessidade de conversão de inteiros para caracteres, e vice-versa, a todo momento.
 
@@ -179,85 +148,61 @@ Essa abordagem gera a necessidade do conhecimento prévio da forma na qual os by
 
 Ambos os métodos discutidos acima deixam transparecer onde que o serviço está sendo realizado, fazendo com que o usuário não possua a noção de transparência que deseja-se em sistemas distribuídos e com isso contradizendo a definição dada por Tanenbaum[1], por exemplo.
 \end{itemize}
-\\\\
+
 \textit{\Large{Desenvolvimento de Servidores}}
-\\
 
 No desenvolvimento dos servidores foi utilizado thread para realizar a conexão com clientes em detrimento da chamada ao sistema, fork. Como demonstra a maioria dos livros e sítios destinados ao estudo da construção de servidores usando socket em C.
 
 A chamada fork cria um novo processo, portanto quando chaveado gera um chaveamento de todo o seu conteúdo. Para evitar esse custo excessivo com chaveamento foi adotado a abordagem de threads.
 Para a comunicação com clientes e servidores de níveis superiores e para espera por novas conexões foram utilizados as funcionalidades da chamada ao sistema poll e da estrutura pollfd. Evitando com que o servidor ficasse ocupado com uma única tarefa. Tornando-se o mais genérico possível e se aproximando de um servidor real.
-\\\\
+
 \textit{\Large{Recebimento dos Dados}}
-\\
 
 Existem problemas no recebimento dos dados, pois as chamadas ao sistema recv em C tanto quanto o método read da classe InputStream não esperam toda a mensagem chegar para prosseguir a execução, um simples byte já permite com que elas continuem a execução. Propiciando assim, o surgimento de incovenientes na execução, pois caso se tenha recebido metade dos inteiros, mas acredita-se que todos tenham chegado, e logo, prossegue-se com a execução, inconsistência nos dados será apresentada.
 
 Para solucionar esse incoveniente foram usadas as seguintes abordagens:
 
-Em C/C++  foi utilizado a flag MSG_WAITALL como parâmetro para a chamada recv, fazendo com que o recv espere por toda a mensagem requisitada antes de continuar. Em Java foi criado um laço que esperava toda que mensagem chegasse antes de prosseguir.
+Em C/C++  foi utilizado a flag \textit{MSG\_WAITALL} como parâmetro para a chamada recv, fazendo com que o recv espere por toda a mensagem requisitada antes de continuar. Em Java foi criado um laço que esperava toda que mensagem chegasse antes de prosseguir.
 
 Surgindo um fato incomum entre as linguagens utilizadas. A solução em C/C++ foi mais simples e já estava pronta. 
-\\\\
+
 \textit{\Large{Medição do tempo na transmissão}}
-\\
 
 Existem problemas na medição do tempo de chaveamento de contexto, entrada/saída do buffer do sistema e no tempo de transmissão real. Contudo, os dois primeiros são desprezíveis em relação ao tempo de transmissão, dado que apresenta até duas ordens de grandeza inferiores ao de transmissão em sistemas atuais.
 
 Com relação ao tempo real de transmissão há o problema de se considerar quais rotas os pacotes tomaram para chegar ao destino. Como não há conhecimento prévio das rotas, torna-se impraticável o cálculo desse tempo.
 
 A solução encontrada foi a mais simples possível. Foram considerados os tempos no envio e no recebimento dos dados,  desprezando o tempo de chaveamento e considerando um erro na medição do tempo total.
-\\\\
+
 \textit{\Large{Comparação entre C/C++ e Java}}
-\\
 
 O desenvolvimento do modelo servidor/cliente em C/C++ é mais complexo em relação ao desenvolvimento em Java. Sendo necessário a configuração de diversos parâmetros além da porta para o seu funcionamento.
 
 Essas configurações que, por um lado, dificultam sua implementação, por outro, permitem maior flexibilidade, pois através delas pode-se criar protocolos de comunicações distintos às já conhecidas e implementadas tanto em C/C++ quanto em Java.
 
 Conclui-se que para desenvolver aplicações servidor/cliente usando TCP ou UDP, Java se torna uma boa escolha pois permite um desenvolvimento mais simples, fácil e rápido. Contudo, se a aplicação necessite da criação de um novo protocolo, que não se baseia ou em UDP ou em TCP, o desenvolvimento em C/C++ é preferido, pois é mais flexível.
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \newpage
 \section{Testes e Resultados}
-Para propósitos de teste, o esquemático (Figura X) foi utilizado. Apresentando quais linguagens foram utilizadas em cada cliente e servidor.
+Para teste do sistema foi acrescentado que os servidores e clientes tem diferentes linguagens de programação(Java/Android , C/C++), a Figura X mostra como ficou a estrutura de teste.
 
-Os resultados dos testes apresentam a performance com relação ao tempo, desde o momento de solicitação do cliente até o momento do recebimento da resposta e do recebimento completo dos pacotes enviados.
+Os resultados foram as performances com relação ao tempo, desde o momento de solicitação do cliente até o momento do recebimento da resposta, e do recebimento completo dos pacotes enviados.
 
-A entrada dos clientes foram os vetores:
+Dado dessas condições obteve-se os seguintes resultados:
 
-Tabela das entradas
 
-As respostas de tempo e de recebimento no final estão expressas abaixo:
+A partir dos resultados obtidos conclui-se que não houve falha na comunicação entre as diferentes linguagens, a mensagem final em todos os clientes coincidiu com a resposta esperada.
+O resultado da performance, mostrou que o tempo de resposta dos sistemas foram esperado, pois como a sistema c
 
 \newpage
 \begin{thebibliography}{99}
 
-
-\bibitem{Tanen} A. S. Tanenbaum, {\it Operating Systems: Design and Implementation, Prentice Hall, Upper Saddle River, NJ, preprint (2008)}.
-
-\bibitem \emph{Android Training}, disponível em 
-\url{http://developer.android.com/training/index.html}.
-
-\bibitem{Dawes, Abrahams} Beman Dawes, David Abrahams, \emph{Documentation},  preprint (2010), diponível em 
-\url{http://www.boost.org/doc/}.
-
-\bibitem\emph{Sockets Tutorial}, disponível em 
-\url{http://www.linuxhowtos.org/C_C++/socket.htm}.
-
-
-\bibitem{}\emph{BSD Socket Programming}{, Department of Computer Science
-VU University - Faculty of Sciences, 
-De Boelelaan 1081,
-1081 HV Amsterdam, 
-The Netherlands} , disponível em 
-\url{http://www.cs.vu.nl/~jms/socket-info.html}.
-
-\bibitem{Arora} Himanshu Arora\emph{C Socket Programming for Linux with a Server and Client Example Code}{, preprint (2011)} , disponível em 
-\url{http://www.thegeekstuff.com/2011/12/c-socket-programming/}.
-
-\bibitem{Adiga} Harsha S. Adiga\emph{Writing endian-independent code in C}{IBM, Software Group, preprint (2007)} , disponível em 
-\url{http://www.ibm.com/developerworks/aix/library/au-endianc/index.html?ca=drs-}.
+\bibitem{Tan} A. S. Tanembaum, {\it Operating Systems: Design and Implementation,} Prentice Hall, Upper Saddle River, NJ, preprint (2008).
+\bibitem{AOS} Android Open Source Project., {\it Android Training,}  disponível em \url{http://developer.android.com/training/index.html}.
+\bibitem{Daw} Beman Dawes, David Abrahams, \emph{Documentation},  preprint (2010), diponível em \url{http://www.boost.org/doc/}.
+\bibitem{Lht} LinuxHowTo, \emph{Sockets Tutorial}, disponível em \url{http://www.linuxhowtos.org/}.
+\bibitem{SPG} Socket Programming, \emph{BSD Socket Programming}, Department of Computer Science VU University - Faculty of Sciences, De Boelelaan 1081, 1081 HV Amsterdam, The Netherlands , disponível em \url{http://www.cs.vu.nl/~jms/socket-info.html}.
+\bibitem{Aro} Himanshu Arora, \emph{C Socket}, C Socket Programming for Linux with a Server and Client Example Code, preprint (2011) , disponível em \url{http://www.thegeekstuff.com/2011/12/c-socket-programming}.
+\bibitem{Adi} Harsha S. Adiga, \emph{IBM}, Writing endian-independent code in C, Software Group, preprint (2007), disponível em \url{http://www.ibm.com/}.
 
 
 
