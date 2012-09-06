@@ -18,9 +18,10 @@ int main(int argc, char** argv) {
         exit(EXIT_FAILURE);
     }
 
-    ServerInterCpp hibridSC(argv);
-    hibridSC.start();
-    hibridSC.join();
+    ServerInterCpp interServer(argv);
+    interServer.start();
+    interServer.join();
+    interServer.closeSocket();
 
     return 0;
 }
