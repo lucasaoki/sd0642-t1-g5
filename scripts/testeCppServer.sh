@@ -4,16 +4,17 @@ base=../
 basepath=${base}doc/programsOut/
 pathDocServer=${basepath}servers/
 ipConnectionServerFinal="172.27.122.131"
-ipConnectionServerLevel3="localhost"
+ipConnectionServerLevel3=("0" "localhost" "localhost" "localhost" "localhost")
 binfolder=${base}bin/
 
 sleep 1
 #Servidores level 3
-portServer4="40000"
-portMyServer1="30001"	
-
-echo Server Cpp 1 Level 3 
-./${binfolder}serverInterCpp ${portMyServer1} 3 ${ipConnectionServerFinal} ${portServer4} > ${pathDocServer}serverCpp1Level3.txt &
+portServer4=("0" "40000" "40000")
+portMyServer1=("0" "30001" "30000")	
+for i in `seq 1 1`; do
+	echo Server Cpp $i Level 3 
+	./${binfolder}serverInterCpp ${portMyServer1[$i]} 3 ${ipConnectionServerFinal} ${portServer4[$i]} > ${pathDocServer}serverCpp${i}Level3.txt &
+done
 sleep 1
 
 #Servidores level 2

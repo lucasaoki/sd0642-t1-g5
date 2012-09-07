@@ -116,7 +116,7 @@ void ClientCpp::listenerData(struct pollfd pollClient) {
 
         if (client > 0) {
 
-            recv(pollClient.fd, arrayReply, sizeof (int) * SIZE_ARRAY_RET, MSG_WAITALL);
+            int x = recv(pollClient.fd, arrayReply, sizeof (int) * SIZE_ARRAY_RET, MSG_WAITALL);
             gettimeofday(&finalConnTime, NULL);
             printArray(arrayReply, SIZE_ARRAY_RET);
             cltListenerReady_ = 0;
