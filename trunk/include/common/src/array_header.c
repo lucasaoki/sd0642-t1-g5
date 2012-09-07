@@ -12,12 +12,10 @@ void randomArray(int *array){
 void printArray(int *array,int numElemInArray){ 
     int i;
     
-    for(i = 1; i <= numElemInArray; i++){
-        printf("%5d  ",array[i-1]);
-    	if(!(i%11))
-    		printf("\n");
+    for(i = 0; i < numElemInArray; i++){
+        printf("%d: %3d\n",i,array[i]);
+    	
     }
-	printf("\n");
 }
 
 int compar(const void *x1, const void *x2){

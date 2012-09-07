@@ -1,4 +1,5 @@
 #include "../include/ServerInterCpp.h"
+#include "string.h"
 
 void ServerInterCpp::start() {
     dataReady = new boost::thread(&ServerInterCpp::dataReady, this);
@@ -32,18 +33,19 @@ void ServerInterCpp::setArraySize(int level) {
 void ServerInterCpp::dataIsReady() {
     while (waitingData) {
 
-        svrMutex.lock();
         cltMutex.lock();
+        svrMutex.lock();
         if (!cltListenerReady_) {
 
-            for (int i = 0; i < SIZE_ARRAY_RET; i++) {
-                returnArray_[i] = arrayReply[i];
-            }
+			memcpy(returnArray_,arrayReply,SIZE_ARRAY_RET*sizeof(int));
+            printf("alsjdfakshgdfakhsdkf \n");
+            printArray(returnArray_, SIZE_ARRAY_RET);
+
             waitingData = 0;
             isDataReady_ = 1;
         }
-        usleep(1000);
-        svrMutex.unlock();
         cltMutex.unlock();
+        svrMutex.unlock();
+        usleep(1000);
     }
 }

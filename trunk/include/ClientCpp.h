@@ -80,7 +80,8 @@ protected:
     boost::thread *threadConnection;
     boost::thread *threadWork;
     boost::thread *threadListenServer;
-
+	
+	    void printArray(int *array, int numElem);
 private:
     /**
 
@@ -89,7 +90,7 @@ private:
     void work();
     void listenerData(struct pollfd pollClient);
     void randomArray(int *array);
-    void printArray(int *array, int numElem);
+
     void printTime();
 };
 

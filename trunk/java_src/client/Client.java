@@ -77,7 +77,7 @@ public class Client {
 
 		int numberRead = in.read(recv);
 		
-		while( numberRead < 2000){
+		while( numberRead < 4000){
 			recv[numberRead] = (byte) in.read();
 			numberRead++;
 		}

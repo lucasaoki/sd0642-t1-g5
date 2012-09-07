@@ -129,11 +129,10 @@ void ServerCpp::isReady() {
                 send(connection_[0], returnArray_, sizeof (returnArray_), 0);
                 send(connection_[1], returnArray_, sizeof (returnArray_), 0);
             }
-            free(array_);
             workArray_ = 0;
         }
-
-        usleep(1000);
         svrMutex.unlock();
+        usleep(1000);
     }
+    free(array_);
 }
