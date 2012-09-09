@@ -1,18 +1,12 @@
 #include "../include/ServerCpp.h"
 
 /**
-        @fn void printArray(int *array)
-        @brief A member method that insert x,y to elem
-        @param *array an integer pointer
+        @fn int compairS(const void *x1, const void *x2)
+        @brief A member method that compair two integers
+        @param *x1 an integer pointer
+        @param *x2 an integer pointer
     @return 
  */
-//void printArray(int *array) {
-//
-//    int i;
-//    for (i = 0; i < 250; i++)
-//        printf("%d: %3d\n", i, array[i]);
-//}
-
 int compairS(const void *x1, const void *x2) {
 
     int elem1 = *(const int*) x1;
@@ -21,6 +15,11 @@ int compairS(const void *x1, const void *x2) {
     return (elem1 < elem2) ? -1 : 1;
 }
 
+/**
+        @fn void ServerCpp::createServer()
+        @brief A method of Server's class that creates the server
+    @return 
+ */
 void ServerCpp::createServer() {
     int reuse_addr = 1;
     struct sockaddr_in serverAddr;
@@ -51,15 +50,30 @@ void ServerCpp::createServer() {
     listener.events = POLLRDNORM;
 }
 
+/**
+        @fn void ServerCpp::startServer()
+        @brief A method of Server's class that initiates the server's threads
+    @return 
+ */
 void ServerCpp::startServer() {
     threadConnection = new boost::thread(&ServerCpp::acceptConnection, this);
     threadReply = new boost::thread(&ServerCpp::isReady, this);
 }
 
+/**
+        @fn void ServerCpp::joinServer()
+        @brief A method of Server's class that calls the join()'s method of the threads
+    @return 
+ */
 void ServerCpp::joinServer() {
     threadReply->join();
 }
 
+/**
+        @fn void ServerCpp::acceptConnection()
+        @brief A method of Server's class that establishes the server connection
+    @return 
+ */
 void ServerCpp::acceptConnection() {
     while (numClient_ < NUM_MAX_CLIENT) {
 
@@ -83,6 +97,12 @@ void ServerCpp::acceptConnection() {
     }
 }
 
+/**
+        @fn void ServerCpp::listenerClient(struct pollfd pollClient)
+        @brief A method of Server's class that receives the client data
+        @param pollClient file descriptor structure
+    @return 
+ */
 void ServerCpp::listenerClient(struct pollfd pollClient) {
     int client;
 
@@ -112,6 +132,11 @@ void ServerCpp::listenerClient(struct pollfd pollClient) {
     }
 }
 
+/**
+        @fn void ServerCpp::isReady()
+        @brief A method of Server's class that reply for its client
+    @return 
+ */
 void ServerCpp::isReady() {
     serverArray_ = (int *) malloc(sizeof (int) * sArraySize_);
 
