@@ -181,6 +181,7 @@ O desenvolvimento do modelo servidor/cliente em C/C++ é mais complexo em relaç
 Essas configurações que, por um lado, dificultam sua implementação, por outro, permitem maior flexibilidade, pois através delas pode-se criar protocolos de comunicações distintos às já conhecidas e implementadas tanto em C/C++ quanto em Java.
 
 Conclui-se que para desenvolver aplicações servidor/cliente usando TCP ou UDP, Java se torna uma boa escolha pois permite um desenvolvimento mais simples, fácil e rápido. Contudo, se a aplicação necessite da criação de um novo protocolo, que não se baseia ou em UDP ou em TCP, o desenvolvimento em C/C++ é preferido, pois é mais flexível.
+
 \newpage
 \section{Testes e Resultados}
 Para teste do sistema foi acrescentado que os servidores e clientes tem diferentes linguagens de programação(Java/Android , C/C++), a Figura X mostra como ficou a estrutura de teste.
@@ -189,11 +190,60 @@ Os resultados foram as performances com relação ao tempo, desde o momento de s
 
 Dado dessas condições obteve-se os seguintes resultados:
 
-
 A partir dos resultados obtidos conclui-se que não houve falha na comunicação entre as diferentes linguagens, a mensagem final em todos os clientes coincidiu com a resposta esperada.
 O resultado da performance, mostrou que o tempo de resposta dos sistemas foram esperado, pois como a sistema c
 
+\begin{table}[ht]
+\caption{Tabela Performance}
+\centering
+\begin{tabular}{c c c c c}
+\hline\hline
+Tempo de Comunicação & Teste \#1 & Teste \#2 & Teste \#3 \\ [0.5ex]
+\hline
+Cliente-C 1 & 2.148s & 0.295s & 10.149s  \\		
+Cliente-C 2 & 2.148s & 0.294s & 10.149s  \\		
+Cliente-Cpp 1 & 3.808s & 1.999s & 0.999s  \\		
+Cliente-Cpp 2 & 3.808s & 1.999s & 0.999s   \\		
+Cliente-Java 1 & 0.233s & 0.907s & 5.948s \\	
+Cliente-Java 2 & 0.206s & 0.921s & 5.948s \\ 	
+Cliente-Java 3 & 0.223s & 0.938s & 5.930s \\ 	
+Cliente-Java 4 & 0.231s & 0.96s & 5.934s \\ 	
+Server-Cliente C 1(level 2) & 3.807s & 3.807s & 0.447s  \\		
+Server-Cliente C 2(level 2) & 0.203s & 0.903s & 5.943s  \\		
+Server-Cliente C 3(level 2) & 0.215s & 0.934s & 5.925s  \\		
+Server-Cliente C 4(level 2) & 2.146s & 0.292s & 10.147s  \\	
+Server-Cliente C 1(level 3) & 0.201s & 0.902s & s 0.446s \\ 	
+Server-Cliente C 2(level 3) & 0.213s & 0.290s & s 5.924s \\ [1ex]
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\caption{Tabela Ordenação}
+\centering
+\begin{tabular}{c c c c c}
+% centered columns (4 columns)
+\hline\hline
+%inserts double horizontal lines
+Tempo de Ordenação & Teste \#1 & Teste \#2 & Teste \#3  \\ [0.5ex]
+% inserts table
+%heading
+\hline
+Server Android & 0.170s & 0.178s & 0.293s \\		
+Server-Cliente C 1(level 2) & 0.0s & 0.0s & 0.0s \\		
+Server-Cliente C 2(level 2) & 0.0s & 0.0s & 0.0s \\		
+Server-Cliente C 3(level 2) & 0.0s & 0.0s & 0.0s \\		
+Server-Cliente C 4(level 2)  & 0.0s & 0.0s & 0.0s \\	
+Server-Cliente C 1(level 3)  & 0.0s & 0.0s & 0.0s \\ 	
+Server-Cliente C 2(level 3)  & 0.0s & 0.0s & 0.0s \\ 	[1ex]
+% [1ex] adds vertical space
+\hline
+%inserts single line
+\end{tabular}
+% is used to refer this table in the text
+\end{table}
 \newpage
+
 \begin{thebibliography}{99}
 
 \bibitem{Tan} A. S. Tanembaum, {\it Operating Systems: Design and Implementation,} Prentice Hall, Upper Saddle River, NJ, preprint (2008).
