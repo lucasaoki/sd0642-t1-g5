@@ -35,7 +35,6 @@ public:
     ServerInterCpp(char* argv[]) : ServerCpp(argv[1]), ClientCpp(argv[3], argv[4]) {
         setArraySize(atoi(argv[2]));
         isFinalServer_ = 0;
-        isClientReady_ = 0;
         waitingData = 1;
         serverToClient = 0;
     }
