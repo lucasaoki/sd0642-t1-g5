@@ -94,6 +94,7 @@ void ClientCpp::joinClient() {
 void ClientCpp::closeSocket() {
     gettimeofday(&finalTime, NULL);
     printTime();
+    free(clientArray_);
     close(my_socket_);
 }
 

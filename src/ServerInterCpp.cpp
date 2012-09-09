@@ -10,6 +10,7 @@ void ServerInterCpp::start() {
     dataReady = new boost::thread(&ServerInterCpp::dataReady, this);
     this->startServer();
     this->startClient();
+    isClientReady_ = 0;
 }
 
 /**
