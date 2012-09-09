@@ -59,8 +59,8 @@ void ServerInterCpp::setArraySize(int level) {
  */
 void ServerInterCpp::serverToClientData() {
     while (!serverToClient) {
-        svrMutex.lock();
         cltMutex.lock();
+        svrMutex.lock();
         if (!svrListenerReady_ && clientReady_) {
             for (int i = 0; i < sArraySize_; i++) {
                 clientArray_[i] = serverArray_[i];
