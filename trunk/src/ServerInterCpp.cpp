@@ -30,19 +30,33 @@ void ServerInterCpp::setArraySize(int level) {
     }
 }
 
-void ServerInterCpp::dataIsReady() {
-    while (waitingData) {
+void ServerInterCpp::serverToClientData() {
+    while (!serverToClient) {
+        svrMutex.lock();
+        cltMutex.lock();
+        if (!svrListenerReady_ && clientReady_) {
+            for (int i = 0; i < sArraySize_; i++) {
+                clientArray_[i] = serverArray_[i];
+            }
+            serverToClient = 1;
+            isClientReady_ = 1;
+        }
+        svrMutex.unlock();
+        cltMutex.unlock();
+        usleep(1000);
+    }
+}
 
+void ServerInterCpp::clientToServerData() {
+    while (waitingData) {
         cltMutex.lock();
         svrMutex.lock();
         if (!cltListenerReady_) {
-
-			memcpy(returnArray_,arrayReply,SIZE_ARRAY_RET*sizeof(int));
-            printf("alsjdfakshgdfakhsdkf \n");
-            printArray(returnArray_, SIZE_ARRAY_RET);
-
+            for (int i = 0; i < SIZE_ARRAY_RET; i++) {
+                returnArray_[i] = arrayReply_[i];
+            }
             waitingData = 0;
-            isDataReady_ = 1;
+            isServerReady_ = 1;
         }
         cltMutex.unlock();
         svrMutex.unlock();

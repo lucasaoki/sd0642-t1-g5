@@ -18,6 +18,11 @@
 
         A class to test draw inheritance        
  */
+class ControlClass {
+public:
+    
+};
+
 class ServerInterCpp : public ServerCpp, ClientCpp {
 public:
 
@@ -31,18 +36,21 @@ public:
         setArraySize(atoi(argv[2]));
         isFinalServer_ = 0;
         waitingData = 1;
+        serverToClient = 0;
     }
     void start();
     void join();
     void closeSocket();
 
 protected:
+    int serverToClient;
     int waitingData;
+    void serverToClientData();        
     void setArraySize(int level);
     boost::thread *dataReady;
 
 private:
-    void dataIsReady();
+    void clientToServerData();
 };
 
 #endif /* SERVCLIENT_H */

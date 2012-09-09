@@ -47,6 +47,7 @@ public:
         cArraySize_ = SIZE_ARRAY_RET / 8;
         cltListenerReady_ = 1;
         tryWork_ = 0;
+        isClientReady_ = 0;
         doWork_ = 1;
         tryConnection_ = 1;
         strcpy(serverName_, serverName);
@@ -66,9 +67,11 @@ protected:
     int cltListenerReady_;
     int tryWork_;
     int doWork_;
+    int isClientReady_;
     int tryConnection_;
     int cArraySize_;
-    int arrayReply[SIZE_ARRAY_RET];
+    int *clientArray_;
+    int arrayReply_[SIZE_ARRAY_RET];
     boost::mutex cltMutex;
 
     struct timeval iniTime, finalTime;
@@ -80,8 +83,7 @@ protected:
     boost::thread *threadConnection;
     boost::thread *threadWork;
     boost::thread *threadListenServer;
-	
-	    void printArray(int *array, int numElem);
+
 private:
     /**
 
@@ -90,7 +92,7 @@ private:
     void work();
     void listenerData(struct pollfd pollClient);
     void randomArray(int *array);
-
+    void printArray(int *array, int numElem);
     void printTime();
 };
 

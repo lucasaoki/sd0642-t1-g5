@@ -90,15 +90,15 @@ void ClientCpp::connectionToServer() {
 }
 
 void ClientCpp::work() {
-    int array[cArraySize_];
+    clientArray_ = (int *) malloc (sizeof (int) * cArraySize_);
+    randomArray(clientArray_);
 
     while (doWork_) {
-        if (tryWork_) {
+        if (tryWork_ && isClientReady_) {
             gettimeofday(&iniTime, NULL);
-            randomArray(array);
-            qsort(array, cArraySize_, sizeof (int), compairC);
+            qsort(clientArray_, cArraySize_, sizeof (int), compairC);
             gettimeofday(&iniConnTime, NULL);
-            send(my_socket_, array, sizeof (array), 0);
+            send(my_socket_, clientArray_, sizeof (int)*cArraySize_, 0);
 
             doWork_ = 0;
         }
@@ -116,9 +116,9 @@ void ClientCpp::listenerData(struct pollfd pollClient) {
 
         if (client > 0) {
 
-            int x = recv(pollClient.fd, arrayReply, sizeof (int) * SIZE_ARRAY_RET, MSG_WAITALL);
+            int x = recv(pollClient.fd, arrayReply_, sizeof (int) * SIZE_ARRAY_RET, MSG_WAITALL);
             gettimeofday(&finalConnTime, NULL);
-            printArray(arrayReply, SIZE_ARRAY_RET);
+            printArray(arrayReply_, SIZE_ARRAY_RET);
             cltListenerReady_ = 0;
         }
 
