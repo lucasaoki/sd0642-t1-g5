@@ -1,22 +1,43 @@
 #include "../include/ServerInterCpp.h"
 #include "string.h"
 
+/**
+        @fn void ServerInterCpp::start()
+        @brief A method of ServerInterCpp's class that initiates the object methods
+    @return 
+ */
 void ServerInterCpp::start() {
     dataReady = new boost::thread(&ServerInterCpp::dataReady, this);
     this->startServer();
     this->startClient();
 }
 
+/**
+        @fn void ServerInterCpp::join()
+        @brief A method of ServerInterCpp's class that calls the join()'s method
+    @return 
+ */
 void ServerInterCpp::join() {
     dataReady->join();
     this->joinServer();
     this->joinClient();
 }
 
+/**
+        @fn void ServerInterCpp::closeSocket()
+        @brief A method of ServerInterCpp's class that closes the connection socket
+    @return 
+ */
 void ServerInterCpp::closeSocket() {
     this->closeSocket();
 }
 
+/**
+        @fn void ServerInterCpp::setArraySize()
+        @brief A method of ServerInterCpp's class that sets the server and client's array size
+        @param level an integer, server/client level
+    @return 
+ */
 void ServerInterCpp::setArraySize(int level) {
     switch (level) {
         case 1: cArraySize_ = 125;
@@ -30,6 +51,11 @@ void ServerInterCpp::setArraySize(int level) {
     }
 }
 
+/**
+        @fn void ServerInterCpp::serverToClientData()
+        @brief A method of ServerInterCpp's class that transfers data from inside server to inside client
+    @return 
+ */
 void ServerInterCpp::serverToClientData() {
     while (!serverToClient) {
         svrMutex.lock();
@@ -47,6 +73,11 @@ void ServerInterCpp::serverToClientData() {
     }
 }
 
+/**
+        @fn void ServerInterCpp::clientToServerData()
+        @brief A method of ServerInterCpp's class that transfers data from inside client to inside server
+    @return 
+ */
 void ServerInterCpp::clientToServerData() {
     while (waitingData) {
         cltMutex.lock();

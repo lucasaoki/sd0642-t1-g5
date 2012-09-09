@@ -47,7 +47,7 @@ public:
         cArraySize_ = SIZE_ARRAY_RET / 8;
         cltListenerReady_ = 1;
         tryWork_ = 0;
-        isClientReady_ = 0;
+        isClientReady_ = 1;
         doWork_ = 1;
         tryConnection_ = 1;
         strcpy(serverName_, serverName);

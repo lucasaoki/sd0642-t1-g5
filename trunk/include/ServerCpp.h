@@ -25,10 +25,6 @@
 #define NUM_MAX_CLIENT 2
 #define SIZE_ARRAY_RET 1000
 
-//#define ARRAY_SIZE_LEVEL_2 250
-//#define ARRAY_SIZE_LEVEL_3 500
-//#define ARRAY_SIZE_LEVEL_4 1000
-
 /** 
         @class Server Server.h "include/Server.h"
         @brief A class for teste doxygen file

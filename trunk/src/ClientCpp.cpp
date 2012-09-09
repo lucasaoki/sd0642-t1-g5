@@ -1,5 +1,12 @@
 #include "../include/ClientCpp.h"
 
+
+/**
+        @fn void ClientCpp::randomArray(int *array)
+        @brief A method of Client's class that generates a ramdom array of size 'cArraySize_'
+        @param *array an integer array pointer
+    @return 
+ */
 void ClientCpp::randomArray(int *array) {
     int i;
 
@@ -7,6 +14,13 @@ void ClientCpp::randomArray(int *array) {
         array[i] = rand() % 999;
 }
 
+/**
+        @fn void ClientCpp::printArray(int *array, int numElem)
+        @brief A method of Client's class that shows the elements of an array
+        @param *array an integer array pointer
+        @param numElem an integer, size of the array
+    @return 
+ */
 void ClientCpp::printArray(int *array, int numElem) {
     int i;
 
@@ -14,6 +28,11 @@ void ClientCpp::printArray(int *array, int numElem) {
         printf("%d: %3d\n", i, array[i]);
 }
 
+/**
+        @fn void ClientCpp::printTime()
+        @brief A method of Client's class that shows the statistic times
+    @return 
+ */
 void ClientCpp::printTime() {
     double sec1, msec1, usec1;
     double sec2, msec2, usec2;
@@ -25,11 +44,18 @@ void ClientCpp::printTime() {
     msec1 = sec1 * 1000 + usec1 / 1000;
     msec2 = sec2 * 1000 + usec2 / 1000;
 
-    std::cout << "Total time for ordering:" << msec1 << "milliseconds" << std::endl;
-    std::cout << "Total connection time:" << msec1 << "milliseconds" << std::endl;
+    std::cout << "Total time for ordering: " << msec1 << " milliseconds" << std::endl;
+    std::cout << "Total connection time: " << msec1 << " milliseconds" << std::endl;
 
 }
 
+/**
+        @fn void compairC(const void *x1, const void *x2)
+        @brief A method that compair two integers
+        @param *x1 an integer pointer
+        @param *x2 an integer pointer
+    @return 
+ */
 int compairC(const void *x1, const void *x2) {
 
     int elem1 = *(const int*) x1;
@@ -38,22 +64,44 @@ int compairC(const void *x1, const void *x2) {
     return (elem1 < elem2) ? -1 : 1;
 }
 
+/**
+        @fn void ClientCpp::startClient()
+        @brief A method of Client's class that initiates the client's threads
+    @return 
+ */
 void ClientCpp::startClient() {
     threadConnection = new boost::thread(&ClientCpp::connectionToServer, this);
     threadWork = new boost::thread(&ClientCpp::work, this);
 }
 
+/**
+        @fn void ClientCpp::joinClient()
+        @brief A method of Client's class that calls the join()'s method of the threads
+        @param *array an integer array pointer
+    @return 
+ */
 void ClientCpp::joinClient() {
     threadConnection->join();
     threadListenServer->join();
 }
 
+/**
+        @fn void ClientCpp::closeSocket()
+        @brief A method of Client's class that closes the client socket
+        @param *array an integer array pointer
+    @return 
+ */
 void ClientCpp::closeSocket() {
     gettimeofday(&finalTime, NULL);
     printTime();
     close(my_socket_);
 }
 
+/**
+        @fn void ClientCpp::connectionToServer()
+        @brief A method of Client's class that establishes the connection with the server
+    @return 
+ */
 void ClientCpp::connectionToServer() {
     while (tryConnection_) {
 
@@ -78,7 +126,6 @@ void ClientCpp::connectionToServer() {
             perror("connect");
             printf("Retrying after 2 seconds\n");
         } else {
-
             tryConnection_ = 0;
             tryWork_ = 1;
             listenerServer.fd = my_socket_;
@@ -89,6 +136,12 @@ void ClientCpp::connectionToServer() {
     }
 }
 
+/**
+        @fn void ClientCpp::work()
+        @brief A method of Client's class that runs the main functions of the class and sends the information for the server
+        @param *array an integer array pointer
+    @return 
+ */
 void ClientCpp::work() {
     clientArray_ = (int *) malloc (sizeof (int) * cArraySize_);
     randomArray(clientArray_);
@@ -106,6 +159,12 @@ void ClientCpp::work() {
     }
 }
 
+/**
+        @fn void ClientCpp::listenerData(struct pollfd pollClient)
+        @brief A method of Client's class that waits for the server's answer
+        @param pollClient file descriptor structure
+    @return 
+ */
 void ClientCpp::listenerData(struct pollfd pollClient) {
     int client;
 
@@ -116,7 +175,7 @@ void ClientCpp::listenerData(struct pollfd pollClient) {
 
         if (client > 0) {
 
-            int x = recv(pollClient.fd, arrayReply_, sizeof (int) * SIZE_ARRAY_RET, MSG_WAITALL);
+            recv(pollClient.fd, arrayReply_, sizeof (int) * SIZE_ARRAY_RET, MSG_WAITALL);
             gettimeofday(&finalConnTime, NULL);
             printArray(arrayReply_, SIZE_ARRAY_RET);
             cltListenerReady_ = 0;
