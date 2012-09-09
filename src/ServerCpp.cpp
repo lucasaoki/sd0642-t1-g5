@@ -93,7 +93,7 @@ void ServerCpp::listenerClient(struct pollfd pollClient) {
         client = poll(&pollClient, 1, 100);
         if (client > 0) {
 
-            recv(pollClient.fd, array_ + indexArray_, sizeof (int) * sArraySize_ / 2, MSG_WAITALL);
+            recv(pollClient.fd, serverArray_ + indexArray_, sizeof (int) * sArraySize_ / 2, MSG_WAITALL);
 
             if (pollClient.fd == connection_[0])
                 indexArray_ = sArraySize_ / 2;
@@ -102,7 +102,7 @@ void ServerCpp::listenerClient(struct pollfd pollClient) {
                     clientReady_ = 1;
                     svrListenerReady_ = 0;
                     if (isFinalServer_) {
-                        isDataReady_ = 1;
+                        isServerReady_ = 1;
                     }
                 }
             }
@@ -113,26 +113,25 @@ void ServerCpp::listenerClient(struct pollfd pollClient) {
 }
 
 void ServerCpp::isReady() {
-    array_ = (int *) malloc(sizeof (int) * sArraySize_);
+    serverArray_ = (int *) malloc(sizeof (int) * sArraySize_);
 
     while (workArray_) {
         svrMutex.lock();
 
-        if (clientReady_ && isDataReady_) {
+        if (clientReady_ && isServerReady_) {
             if (isFinalServer_) {
-
-                qsort(array_, sArraySize_, sizeof (int), compairS);
-                send(connection_[0], array_, sizeof (int) *sArraySize_, 0);
-                send(connection_[1], array_, sizeof (int) *sArraySize_, 0);
+                qsort(serverArray_, sArraySize_, sizeof (int), compairS);
+                send(connection_[0], serverArray_, sizeof (int) *sArraySize_, 0);
+                send(connection_[1], serverArray_, sizeof (int) *sArraySize_, 0);
 
             } else {
                 send(connection_[0], returnArray_, sizeof (returnArray_), 0);
                 send(connection_[1], returnArray_, sizeof (returnArray_), 0);
             }
+            free(serverArray_);
             workArray_ = 0;
         }
         svrMutex.unlock();
         usleep(1000);
     }
-    free(array_);
 }

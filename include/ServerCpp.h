@@ -48,7 +48,7 @@ public:
         indexArray_ = 0;
         indexConnect_ = 0;
         isFinalServer_ = 1;
-        isDataReady_ = 0;
+        isServerReady_ = 0;
         createServer();
     }
     void startServer();
@@ -63,7 +63,7 @@ protected:
      */
     int port_;
     int sockServer_;
-    int isDataReady_;
+    int isServerReady_;
     int isFinalServer_;
     int clientReady_;
     int numClient_;
@@ -72,7 +72,7 @@ protected:
     int indexArray_;
     int indexConnect_;
     int sArraySize_;
-    int *array_;
+    int *serverArray_;
     int returnArray_[SIZE_ARRAY_RET];
     int connection_[NUM_MAX_CLIENT];
     boost::mutex svrMutex;
