@@ -147,6 +147,8 @@ void ClientCpp::work() {
     randomArray(clientArray_);
 
     while (doWork_) {
+        cltMutex.lock();
+        
         if (tryWork_ && isClientReady_) {
             gettimeofday(&iniTime, NULL);
             qsort(clientArray_, cArraySize_, sizeof (int), compairC);
@@ -155,6 +157,7 @@ void ClientCpp::work() {
 
             doWork_ = 0;
         }
+        cltMutex.unlock();
         usleep(1000);
     }
 }
