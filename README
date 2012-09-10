@@ -55,7 +55,7 @@ porta_servidor_acima
 *JAVA
 	Clientes 
 	
-	$	javac Client.class	ip_servidor_nivel_acima 
+	$	java Client ip_servidor_nivel_acima 
 porta_servidor_acima  
 
 ---------------------   TESTE    ---------------------------
